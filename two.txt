@@ -1,4 +1,0 @@
-Hi How are you?
-Hi Welcome to Prathima Techologies
-JAVA
-Ansible
