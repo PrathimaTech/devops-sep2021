@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>Hello World! Deployment using deployto war plugin</h2>
 </body>
 </html>
