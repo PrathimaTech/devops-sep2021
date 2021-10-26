@@ -12,6 +12,11 @@
 	<id>prathima-remote-repo</id>
 	<url>http://34.229.179.142:8081/repository/prathima-remote-repo/</url>
      </repository>
+     <repository>
+	<id>prathima-remote-proxy</id>
+	<url>http://34.229.179.142:8081/repository/prathima-remote-proxy/</url>
+     </repository>
+   </repositories>
   </repositories>
   <dependencies>
     <dependency>
