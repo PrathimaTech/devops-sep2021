@@ -4,7 +4,7 @@
   <groupId>wallmart</groupId>
   <artifactId>NexusWarProject</artifactId>
   <packaging>war</packaging>
-  <version>1.1</version>
+  <version>1.2</version>
   <name>NexusWarProject Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -15,6 +15,18 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>nexus-releases</id>
+	  <name>PrathimaTechnologies Releases Nexus Repository</name>
+      <url>http://34.207.220.14:8081/repository/pratima-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+	  <name>PrathimaTechnologies Snapshot Nexus Repository</name>
+      <url>http://34.207.220.14:8081/repository/pratima-snapshots/</url>
+    </snapshotRepository>    
+  </distributionManagement>
   <build>
     <finalName>${artifactId}-${version}</finalName>
   </build>
