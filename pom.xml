@@ -17,7 +17,6 @@
 	<url>http://34.229.179.142:8081/repository/prathima-remote-proxy/</url>
      </repository>
    </repositories>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
