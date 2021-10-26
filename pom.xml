@@ -15,6 +15,18 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>nexus-releases</id>
+	  <name>PrathimaTechnologies Releases Nexus Repository</name>
+      <url>http://54.90.149.137:8081/repository/pratima-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+	  <name>PrathimaTechnologies Snapshot Nexus Repository</name>
+      <url>http://54.90.149.137:8081/repository/pratima-snapshots/</url>
+    </snapshotRepository> 
+  </distributionManagement>
   <build>
     <finalName>${artifactId}-${version}</finalName>
   </build>
