@@ -16,6 +16,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>NexusWarProject</finalName>
+    <finalName>${artifactId}-${version}</finalName>
   </build>
 </project>
