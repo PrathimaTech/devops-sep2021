@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>NexusWarProject Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <repositories>
+  <!--<repositories>
      <repository>
 	<id>prathima-remote-repo</id>
 	<url>http://34.229.179.142:8081/repository/prathima-remote-repo/</url>
@@ -16,7 +16,7 @@
 	<id>prathima-remote-proxy</id>
 	<url>http://34.229.179.142:8081/repository/prathima-remote-proxy/</url>
      </repository>
-   </repositories>
+   </repositories> -->
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -24,14 +24,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+  <!--  <dependency>
        <groupId>wallmart</groupId>
        <artifactId>mailx</artifactId>
        <version>1.0</version>
        <type>war</type>
-     </dependency>	  
+     </dependency>	  -->
   </dependencies>
-  <distributionManagement>
+  <!--<distributionManagement>
     <repository>
       <id>nexus-releases</id>
 	  <name>PrathimaTechnologies Releases Nexus Repository</name>
@@ -42,7 +42,7 @@
 	  <name>PrathimaTechnologies Snapshot Nexus Repository</name>
       <url>http://34.229.179.142:8081/repository/pratima-snapshots/</url>
     </snapshotRepository> 
-  </distributionManagement>
+  </distributionManagement> -->
   <build>
     <finalName>${artifactId}-${version}</finalName>
   </build>
