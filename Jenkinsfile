@@ -14,7 +14,7 @@ pipeline {
 	
 		stage('GitCheckout'){
 			steps{
-			  echo "This is GitCheckout stage"
+			  echo "This stage is for GitCheckout"
 			}
 		}
         stage('Build'){
