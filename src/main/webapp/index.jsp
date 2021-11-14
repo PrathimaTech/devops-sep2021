@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! Elastic Bean Stalk Deployment using Pipeline</h2>
+<h2>Hello World! Tomcat Deployment</h2>
 </body>
 </html>
