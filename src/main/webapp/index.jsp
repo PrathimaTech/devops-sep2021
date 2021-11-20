@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! Tomcat Deployment using Jenkins Pipeline</h2>
+<h2>Hello World! Tomcat Deployment using free style project</h2>
 </body>
 </html>
