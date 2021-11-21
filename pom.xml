@@ -31,7 +31,7 @@
        <type>war</type>
      </dependency>	  -->
   </dependencies>
-  <!--<distributionManagement>
+ <!-- <distributionManagement>
     <repository>
       <id>nexus-releases</id>
 	  <name>PrathimaTechnologies Releases Nexus Repository</name>
