@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! Tomcat Deployment using free style project</h2>
+<h2>Hello World! Tomcat Deployment using pipeline job with sonar code quality</h2>
 </body>
 </html>
