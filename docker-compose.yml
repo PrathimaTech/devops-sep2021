@@ -1,0 +1,37 @@
+version: '3.1' # Docker Comopose File Format Version
+services:
+  springapp:
+    image: badri/spring-boot-mango
+    container_name: springapp_cont
+    ports:
+    - 8080:8080
+    environment:
+      MONGO_DB_HOSTNAME: mongodb
+      MONGO_DB_USERNAME: mongodevdb
+      MONGO_DB_PASSWORD: dev@1234
+    networks:
+    - flipkartbridge
+    depends_on:
+    - mongodb
+    deploy:
+      mode: replicated
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodevdb
+      MONGO_INITDB_ROOT_PASSWORD: dev@1234
+    networks:
+    - flipkartbridge
+    volumes:
+    - mongobkp:/data/db
+volumes:
+  mongobkp:
+networks:
+  flipkartbridge:
