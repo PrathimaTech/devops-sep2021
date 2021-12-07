@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! Deployment Using Jenkins Docker Swarm Integration</h2>
+<h2>Hello World! Deployment Using Maven Tomcat</h2>
 </body>
 </html>
