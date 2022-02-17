@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! Deployment into tomcat Using jenkins maven tomcat integration container plugin </h2>
+<h2>Hello World! Deployment into tomcat Using jenkins maven tomcat integration using pipeline </h2>
 </body>
 </html>
