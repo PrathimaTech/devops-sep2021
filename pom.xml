@@ -44,6 +44,6 @@
     </snapshotRepository> 
   </distributionManagement> -->
   <build>
-    <finalName>${artifactId}</finalName>
+    <finalName>${artifactId}-${version</finalName>
   </build>
 </project>
