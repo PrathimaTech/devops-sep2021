@@ -43,7 +43,7 @@
       <url>http://34.229.179.142:8081/repository/pratima-snapshots/</url>
     </snapshotRepository> 
   </distributionManagement> -->
-  <build>
+ <!-- <build>
     <finalName>${artifactId}-${version}</finalName>
-  </build>
+  </build> -->
 </project>
