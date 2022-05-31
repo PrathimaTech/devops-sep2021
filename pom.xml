@@ -31,18 +31,18 @@
        <type>war</type>
      </dependency>	  -->
   </dependencies>
-  <!--<distributionManagement>
+  <distributionManagement>
     <repository>
       <id>nexus-releases</id>
 	  <name>PrathimaTechnologies Releases Nexus Repository</name>
-      <url>http://34.229.179.142:8081/repository/pratima-releases/</url>
+      <url>http://35.175.218.235:8081/repository/pratima-releases/</url>
     </repository>
     <snapshotRepository>
       <id>nexus-snapshots</id>
 	  <name>PrathimaTechnologies Snapshot Nexus Repository</name>
-      <url>http://34.229.179.142:8081/repository/pratima-snapshots/</url>
+      <url>http://35.175.218.235:8081/repository/pratima-snapshots/</url>
     </snapshotRepository> 
-  </distributionManagement> -->
+  </distributionManagement>
   <build>
     <finalName>${artifactId}-${version}</finalName>
   </build>
