@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World! application deployment into dockerswarm cluster using jenkins,maven,dockerhub using pipeline </h2>
+<h2>Hello World! application deployment into tomcat cluster using maven </h2>
 </body>
 </html>
