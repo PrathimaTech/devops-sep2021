@@ -4,11 +4,17 @@ properties([parameters([string(name: 'Country', defaultValue: 'India', descripti
 pipeline {
     agent any
 
+    options {}
+
+    tools {}
+
+    environment {}
+
     stages {
 	
 		stage('GitCheckout'){
 			steps{
-			  echo "This stage is for GitCheckout"
+			  echo "This is GitCheckout stage"
 			}
 		}
         stage('Build'){
@@ -35,4 +41,5 @@ pipeline {
 		}       
     }
 
+    post {}
 }
