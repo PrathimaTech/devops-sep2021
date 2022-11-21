@@ -1,14 +1,11 @@
-properties([parameters([string(name: 'Country', defaultValue: 'India', description: 'Enter the Country Name'), 
-            string(name: 'State', defaultValue: 'Karnataka', description: 'enter state name')])])
-
 pipeline {
     agent any
 
-    options {}
+    // options {}
 
-    tools {}
+    // tools {}
 
-    environment {}
+    // environment {}
 
     stages {
 	
