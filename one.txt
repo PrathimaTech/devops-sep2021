@@ -1,4 +1,5 @@
 Hi how are you?
 what are u doing?
 welcome to aws&devops
-git hub hook trigger forgit scm polling demo for oct batch
+git hub hook trigger forgit scm polling demo for oct batcih
+git hub hook trigger for git scm polling demo for nov 22 batch
