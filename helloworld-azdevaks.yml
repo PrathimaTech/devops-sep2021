@@ -22,7 +22,7 @@ spec:
     spec: 
       containers:
       - name: javawebappcontainer
-        image:  myacrrepo2310.azurecr.io/my-web:v1
+        image:  mstechk8sacr.azurecr.io/helloworld:latest
         ports:
         - containerPort: 8080
 ---        
