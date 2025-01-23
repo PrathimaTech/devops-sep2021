@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebappdeployment
+spec: 
+  replicas: 4
+  selector:
+    matchLabels:
+      app: javawebapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:  
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 30
+  template:
+    metadata:
+      name: javawebapppod
+      labels:
+        app: javawebapp 
+    spec: 
+      containers:
+      - name: javawebappcontainer
+        image: badri/java-web-app:v1
+        ports:
+        - containerPort: 8080
+---        
+apiVersion: v1
+kind: Service
+metadata: 
+  name: javawebappservice
+spec:
+  type: LoadBalancer
+  selector: 
+    app: javawebapp
+  ports:
+  - port: 80   # Service Port using which we can access inside cluster
+    targetPort: 8080 # containerPort inside pod
