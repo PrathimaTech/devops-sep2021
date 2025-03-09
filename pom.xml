@@ -17,6 +17,6 @@
   </dependencies>  
   <build>
    <!-- <finalName>${artifactId}-${version}</finalName> -->
-	  <finalName>${artifactId}</finalName>
+	  <finalName>${project.artifactId}</finalName>
   </build>
 </project>
