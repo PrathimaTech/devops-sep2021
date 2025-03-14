@@ -58,7 +58,7 @@ pipeline {
                 script {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Initialize Terraform
-                    sh 'terraform init -input=false -no-color'
+                    sh 'terraform init'
                     }
                 }
             }
