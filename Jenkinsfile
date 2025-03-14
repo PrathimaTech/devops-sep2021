@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'
+        regName = 'us-east-1'
         awsCred = 'aws-cred'
         // Add other necessary environment variables here
     }
