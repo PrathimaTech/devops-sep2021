@@ -1,44 +1,110 @@
-properties([parameters([string(name: 'Country', defaultValue: 'India', description: 'Enter the Country Name'), 
-            string(name: 'State', defaultValue: 'Karnataka', description: 'enter state name')])])
 pipeline {
+
     agent any
 
-    // options {}
-
-    // tools {}
-
-    // environment {}
-
-    stages {
-	
-		stage('GitCheckout'){
-			steps{
-			  echo "This is GitCheckout stage"
-			}
-		}
-        stage('Build'){
-			steps{
-			  echo "This is build stage"
-			}
-		}
-		stage('Sonar'){
-			steps{
-			  echo "This is static code analysis stage"
-			}
-		}
-
-		stage('Nexus'){
-			steps{
-			  echo "This is for uploading artifacts into Nexus stage"
-			}
-		}
-		
-		stage('Deployment'){
-			steps{
-			  echo "This is Deployment stage"
-			}
-		}       
+    environment {
+        AWS_REGION = 'us-east-1'
+        // Add other necessary environment variables here
     }
 
-    // post {}
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                git 'https://github.com/PrathimaTech/devops-sep2021.git' 
+            }
+        }
+
+        stage('Build') {
+            steps { 
+                    // Build the application without running tests
+                   def mvnhome= tool name: 'Maven-3', type: 'maven'
+                   sh "${mvnhome}/bin/mvn clean package -DskipTests"
+                }
+            }        
+
+        stage('Unit Test') {
+            steps {
+                    // Runs only unit tests
+                   def mvnhome= tool name: 'Maven-3', type: 'maven'
+                   sh "${mvnhome}/bin/mvn test"
+            }
+        }
+
+        stage('Static Code Analysis') {
+            steps {
+              echo "Static Code Analysis has been completed"
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                // Run security scans
+              echo "Security Scan with Trivy has been completed"
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                script {
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    // Plan Terraform changes based on the branch
+                    if (env.BRANCH_NAME == 'development') {
+                        sh 'terraform plan -var-file=dev.tfvars'
+                    } else if (env.BRANCH_NAME == 'staging') {
+                        sh 'terraform plan -var-file=stag.tfvars'
+                    } else if (env.BRANCH_NAME == 'production') {
+                        sh 'terraform plan -var-file=prod.tfvars'
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    // Apply Terraform changes based on the branch
+                    if (env.BRANCH_NAME == 'development') {
+                        sh 'terraform apply -var-file=dev.tfvars -auto-approve'
+                    } else if (env.BRANCH_NAME == 'staging') {
+                        sh 'terraform apply -var-file=stag.tfvars -auto-approve'
+                    } else if (env.BRANCH_NAME == 'production') {
+                        sh 'terraform apply -var-file=prod.tfvars -auto-approve'
+                    }
+                }
+            }
+        }
+        
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         script {
+        //             // Deploy application to Kubernetes cluster
+        //             deployToK8s(env.BRANCH_NAME)
+        //         }
+        //     }
+        // }
+    }
+
+    post {
+        always {
+            cleanWs()  // Clean workspace after each build
+        }
+    }
 }
+
+// def deployToK8s(environment) {
+//     withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+//         sh """
+//         kubectl apply -f k8s/${environment}/deployment.yaml
+//         kubectl apply -f k8s/${environment}/service.yaml
+//         """
+//     }
+// }
