@@ -9,10 +9,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout') { 
             steps {
-                // Checkout the code from the repository
-                git 'https://github.com/PrathimaTech/devops-sep2021.git' 
+                script{
+               // Checkout the code from the repository
+                git branch: env.BRANCH_NAME, url: 'https://github.com/PrathimaTech/devops-sep2021.git' 
+                }                
             }
         }
 
@@ -108,11 +110,11 @@ pipeline {
         // }
     }
 
-    // post {
-    //     always {
-    //         cleanWs()  // Clean workspace after each build
-    //     }
-    // }
+    post {
+        always {
+            cleanWs()  // Clean workspace after each build
+        }
+    }
 }
 
 // def deployToK8s(environment) {
