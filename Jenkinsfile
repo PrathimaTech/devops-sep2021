@@ -4,6 +4,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'us-east-1'
+        awsCred = 'aws-cred'
         // Add other necessary environment variables here
     }
 
@@ -47,8 +48,10 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
+                    withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Initialize Terraform
                     sh 'terraform init'
+                    }
                 }
             }
         }
@@ -56,6 +59,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 script {
+                    withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
                         sh 'terraform plan -var-file=dev.tfvars'
@@ -64,6 +68,7 @@ pipeline {
                     } else if (env.BRANCH_NAME == 'production') {
                         sh 'terraform plan -var-file=prod.tfvars'
                     }
+                    }
                 }
             }
         }
@@ -71,6 +76,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 script {
+                    withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
                         sh 'terraform apply -var-file=dev.tfvars -auto-approve'
@@ -78,6 +84,7 @@ pipeline {
                         sh 'terraform apply -var-file=stag.tfvars -auto-approve'
                     } else if (env.BRANCH_NAME == 'production') {
                         sh 'terraform apply -var-file=prod.tfvars -auto-approve'
+                    }
                     }
                 }
             }
