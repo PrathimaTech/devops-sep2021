@@ -89,11 +89,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform apply tfplan -var-file=dev.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform apply tfplan -var-file=stag.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform apply tfplan -var-file=prod.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     }
                     }
                 }
