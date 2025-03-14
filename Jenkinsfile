@@ -18,31 +18,39 @@ pipeline {
 
         stage('Build') {
             steps { 
+                script {
                     // Build the application without running tests
                    def mvnhome= tool name: 'Maven-3', type: 'maven'
                    sh "${mvnhome}/bin/mvn clean package -DskipTests"
                 }
-            }        
+            }  
+        }         
 
         stage('Unit Test') {
             steps {
+                script {
                     // Runs only unit tests
                    def mvnhome= tool name: 'Maven-3', type: 'maven'
                    sh "${mvnhome}/bin/mvn test"
             }
+          }
         }
 
         stage('Static Code Analysis') {
             steps {
+                script {
               echo "Static Code Analysis has been completed"
             }
+          }
         }
 
         stage('Security Scan') {
             steps {
+                script {
                 // Run security scans
               echo "Security Scan with Trivy has been completed"
             }
+          }
         }
 
         stage('Terraform Init') {
