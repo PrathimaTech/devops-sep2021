@@ -3,16 +3,18 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'
+        regName = 'us-east-1'
         awsCred = 'aws-cred'
         // Add other necessary environment variables here
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout') { 
             steps {
-                // Checkout the code from the repository
-                git 'https://github.com/PrathimaTech/devops-sep2021.git' 
+                script{
+               // Checkout the code from the repository
+                git branch: env.BRANCH_NAME, url: 'https://github.com/PrathimaTech/devops-sep2021.git' 
+                }                
             }
         }
 
@@ -70,11 +72,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform plan -var-file=dev.tfvars'
+                        sh 'terraform plan -var-file=dev.tfvars -out=tfplan'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform plan -var-file=stag.tfvars'
+                        sh 'terraform plan -var-file=stag.tfvars -out=tfplan'
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform plan -var-file=prod.tfvars'
+                        sh 'terraform plan -var-file=prod.tfvars -out=tfplan'
                     }
                     }
                 }
@@ -87,11 +89,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform apply -var-file=dev.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform apply -var-file=stag.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform apply -var-file=prod.tfvars -auto-approve'
+                        sh 'terraform apply tfplan'
                     }
                     }
                 }
