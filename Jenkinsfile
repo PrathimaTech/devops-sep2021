@@ -68,6 +68,7 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
+                lock(resource: 'terraform-state-lock') { 
                 script {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
@@ -81,10 +82,12 @@ pipeline {
                     }
                 }
             }
+          }
         }
 
         stage('Terraform Apply') {
             steps {
+                lock(resource: 'terraform-state-lock') { 
                 script {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
@@ -98,6 +101,7 @@ pipeline {
                     }
                 }
             }
+          }         
         }
         
         // stage('Deploy to Kubernetes') {
