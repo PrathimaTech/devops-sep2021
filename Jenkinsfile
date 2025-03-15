@@ -73,11 +73,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform plan -var-file=dev.tfvars -out=tfplan'
+                        sh 'terraform plan -var-file=dev.tfvars -out=tfplandev'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform plan -var-file=stag.tfvars -out=tfplan'
+                        sh 'terraform plan -var-file=stag.tfvars -out=tfplanstg'
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform plan -var-file=prod.tfvars -out=tfplan'
+                        sh 'terraform plan -var-file=prod.tfvars -out=tfplanprod'
                     }
                     }
                 }
@@ -92,11 +92,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform apply tfplan'
+                        sh 'terraform apply tfplandev'
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform apply tfplan'
+                        sh 'terraform apply tfplanstg'
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform apply tfplan'
+                        sh 'terraform apply tfplanprod'
                     }
                     }
                 }
