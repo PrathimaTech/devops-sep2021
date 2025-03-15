@@ -114,11 +114,11 @@ pipeline {
         // }
     }
 
-    post {
-        always {
-            cleanWs()  // Clean workspace after each build
-        }
-    }
+    // post {
+    //     always {
+    //         cleanWs()  // Clean workspace after each build
+    //     }
+    // }
 }
 
 // def deployToK8s(environment) {
