@@ -72,6 +72,8 @@ pipeline {
                 script {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
+                    //In Groovy, single quotes (' ') treat content as a literal string and do NOT expand variables.
+                    //Using double quotes (" ") allows variable expansion inside the string.
                     if (env.BRANCH_NAME == 'development') {
                         def tfplandev = "tf-${env.BRANCH_NAME}.tfplan"
                         sh "terraform plan -var-file=dev.tfvars -out=${tfplandev}"
