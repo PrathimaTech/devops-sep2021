@@ -74,14 +74,17 @@ pipeline {
                     // Plan Terraform changes based on the branch
                     //In Groovy, single quotes (' ') treat content as a literal string and do NOT expand variables.
                     //Using double quotes (" ") allows variable expansion inside the string.
+                    def tfplandev = ""  // ✅ Declare the variable before the if-else block
+                    def tfplanstg = ""
+                    def tfplanprod = ""
                     if (env.BRANCH_NAME == 'development') {
-                        def tfplandev = "tf-${env.BRANCH_NAME}.tfplan"
+                        tfplandev = "tf-${env.BRANCH_NAME}.tfplan"
                         sh "terraform plan -var-file=dev.tfvars -out=${tfplandev}"
                     } else if (env.BRANCH_NAME == 'staging') {
-                        def tfplanstg = "tf-${env.BRANCH_NAME}.tfplan"
+                        tfplanstg = "tf-${env.BRANCH_NAME}.tfplan"
                         sh "terraform plan -var-file=stag.tfvars -out=${tfplanstg}"
                     } else if (env.BRANCH_NAME == 'production') {
-                        def tfplanprod = "tf-${env.BRANCH_NAME}.tfplan"
+                        tfplanprod = "tf-${env.BRANCH_NAME}.tfplan"
                         sh "terraform plan -var-file=prod.tfvars -out=${tfplanprod}"
                     }
                     }
