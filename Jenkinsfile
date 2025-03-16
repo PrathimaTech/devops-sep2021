@@ -72,15 +72,17 @@ pipeline {
                 script {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Plan Terraform changes based on the branch
+                    //In Groovy, single quotes (' ') treat content as a literal string and do NOT expand variables.
+                    //Using double quotes (" ") allows variable expansion inside the string.
                     if (env.BRANCH_NAME == 'development') {
-                        def tfplandev = "tf-${env.BRANCH_NAME}.tfplan"
-                        sh 'terraform plan -var-file=dev.tfvars -out=${tfplandev}'
+                        env.tfplandev = "tf-${env.BRANCH_NAME}.tfplan"
+                        sh "terraform plan -var-file=dev.tfvars -out=${tfplandev}"
                     } else if (env.BRANCH_NAME == 'staging') {
-                        def tfplanstg = "tf-${env.BRANCH_NAME}.tfplan"
-                        sh 'terraform plan -var-file=stag.tfvars -out=${tfplanstg}'
+                        env.tfplanstg = "tf-${env.BRANCH_NAME}.tfplan"
+                        sh "terraform plan -var-file=stag.tfvars -out=${tfplanstg}"
                     } else if (env.BRANCH_NAME == 'production') {
-                        def tfplanprod = "tf-${env.BRANCH_NAME}.tfplan"
-                        sh 'terraform plan -var-file=prod.tfvars -out=${tfplanprod}'
+                        env.tfplanprod = "tf-${env.BRANCH_NAME}.tfplan"
+                        sh "terraform plan -var-file=prod.tfvars -out=${tfplanprod}"
                     }
                     }
                 }
@@ -95,11 +97,11 @@ pipeline {
                     withAWS(credentials: "${awsCred}", region: "${regName}"){
                     // Apply Terraform changes based on the branch
                     if (env.BRANCH_NAME == 'development') {
-                        sh 'terraform apply ${tfplandev}'
+                        sh "terraform apply ${env.tfplandev}"
                     } else if (env.BRANCH_NAME == 'staging') {
-                        sh 'terraform apply ${tfplanstg}'
+                        sh "terraform apply ${env.tfplanstg}"
                     } else if (env.BRANCH_NAME == 'production') {
-                        sh 'terraform apply ${tfplanprod}'
+                        sh "terraform apply ${env.tfplanprod}"
                     }
                     }
                 }
