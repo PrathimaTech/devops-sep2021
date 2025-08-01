@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxsvc
+spec:
+  type: LoadBalancer       # Changed from NodePort to LoadBalancer
+  selector:
+    app: nginx
+  ports:
+  - port: 80               # Exposed port on LoadBalancer
+    targetPort: 80         # Target port on the pod
