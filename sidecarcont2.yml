@@ -11,8 +11,7 @@ spec:
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/nginx
-    # Override NGINX config to write access logs to /var/log/nginx/access.log
-    command: ["/bin/bash", "-c"]
+    command: ["/bin/sh", "-c"]
     args:
       - |
         echo 'daemon off;
@@ -30,7 +29,7 @@ spec:
 
   - name: sidecar-logger
     image: busybox
-    command: ['sh', '-c', 'while true; do echo "--- Log Output ---"; cat /var/log/nginx/access.log; sleep 10; done']
+    command: ['sh', '-c', 'touch /var/log/nginx/access.log; while true; do echo "--- Log Output ---"; cat /var/log/nginx/access.log; sleep 10; done']
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/nginx
