@@ -11,7 +11,9 @@ spec:
       volumeMounts:
         - name: shared-logs
           mountPath: /var/log/nginx
-      command: ["/bin/sh", "-c"]
+      command:
+        - /bin/sh
+        - '-c'
       args:
         - |
           cat <<EOF > /etc/nginx/nginx.conf
@@ -26,12 +28,13 @@ spec:
               }
             }
           }
-EOF
+           EOF
           nginx -g 'daemon off;'
-
     - name: sidecar-logger
       image: busybox
-      command: ["/bin/sh", "-c"]
+      command:
+        - /bin/sh
+        - '-c'
       args:
         - |
           while true; do
@@ -46,7 +49,6 @@ EOF
       volumeMounts:
         - name: shared-logs
           mountPath: /var/log/nginx
-
   volumes:
     - name: shared-logs
       emptyDir: {}
