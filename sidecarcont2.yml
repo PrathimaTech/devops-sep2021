@@ -16,8 +16,7 @@ spec:
         - '-c'
       args:
         - |
-          cat <<EOF > /etc/nginx/nginx.conf
-          daemon off;
+          cat <<EOF > /etc/nginx/nginx.conf        
           error_log /var/log/nginx/error.log info;
           events {}
           http {
