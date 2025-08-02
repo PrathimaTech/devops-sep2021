@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -14,7 +15,8 @@ spec:
     command: ["/bin/sh", "-c"]
     args:
       - |
-        echo 'daemon off;
+        cat <<EOF > /etc/nginx/nginx.conf
+        daemon off;
         error_log /var/log/nginx/error.log info;
         events {}
         http {
@@ -22,14 +24,24 @@ spec:
           server {
             listen 80;
             location / {
-              return 200 "Hello from NGINX\n";
+              return 200 'Hello from NGINX\n';
             }
           }
-        }' > /etc/nginx/nginx.conf && nginx -g 'daemon off;'
+        }
+EOF
+        nginx
 
   - name: sidecar-logger
     image: busybox
-    command: ['sh', '-c', 'touch /var/log/nginx/access.log; while true; do echo "--- Log Output ---"; cat /var/log/nginx/access.log; sleep 10; done']
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        touch /var/log/nginx/access.log;
+        while true; do
+          echo "--- Sidecar log output ---";
+          cat /var/log/nginx/access.log;
+          sleep 10;
+        done
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/nginx
