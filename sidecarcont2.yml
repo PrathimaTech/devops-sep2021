@@ -13,34 +13,34 @@ spec:
       mountPath: /var/log/nginx
     command: ["/bin/sh", "-c"]
     args:
-      - |
-        cat <<EOF > /etc/nginx/nginx.conf
-        daemon off;
-        error_log /var/log/nginx/error.log info;
-        events {}
-        http {
-          access_log /var/log/nginx/access.log;
-          server {
-            listen 80;
-            location / {
-              return 200 'Hello from NGINX\n';
-            }
-          }
-        }
+    - |
+      cat <<EOF > /etc/nginx/nginx.conf
+daemon off;
+error_log /var/log/nginx/error.log info;
+events {}
+http {
+  access_log /var/log/nginx/access.log;
+  server {
+    listen 80;
+    location / {
+      return 200 'Hello from NGINX\n';
+    }
+  }
+}
 EOF
-        nginx
+      nginx -g 'daemon off;'
 
   - name: sidecar-logger
     image: busybox
     command: ["/bin/sh", "-c"]
     args:
-      - |
-        touch /var/log/nginx/access.log;
-        while true; do
-          echo "--- Sidecar log output ---";
-          cat /var/log/nginx/access.log;
-          sleep 10;
-        done
+    - |
+      touch /var/log/nginx/access.log;
+      while true; do
+        echo "--- Sidecar log output ---";
+        cat /var/log/nginx/access.log;
+        sleep 10;
+      done
     volumeMounts:
     - name: shared-logs
       mountPath: /var/log/nginx
