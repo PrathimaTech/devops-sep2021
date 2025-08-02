@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-demo
+spec:
+  containers:
+  - name: main-app
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/nginx
+    # Override NGINX config to write access logs to /var/log/nginx/access.log
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        echo 'daemon off;
+        error_log /var/log/nginx/error.log info;
+        events {}
+        http {
+          access_log /var/log/nginx/access.log;
+          server {
+            listen 80;
+            location / {
+              return 200 "Hello from NGINX\n";
+            }
+          }
+        }' > /etc/nginx/nginx.conf && nginx -g 'daemon off;'
+
+  - name: sidecar-logger
+    image: busybox
+    command: ['sh', '-c', 'while true; do echo "--- Log Output ---"; cat /var/log/nginx/access.log; sleep 10; done']
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/nginx
+
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
