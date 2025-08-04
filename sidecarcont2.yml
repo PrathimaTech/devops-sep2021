@@ -15,18 +15,18 @@ spec:
     args:
       - |
         cat <<EOF > /etc/nginx/nginx.conf
-    error_log /var/log/nginx/error.log info;
-    events {}
-    http {
-      access_log /var/log/nginx/access.log;
-      server {
-        listen 80;
-        location / {
-          return 200 "Hello from NGINX\n";
+        error_log /var/log/nginx/error.log info;
+        events {}
+        http {
+          access_log /var/log/nginx/access.log;
+          server {
+            listen 80;
+            location / {
+              return 200 "Hello from NGINX\n";
+            }
+          }
         }
-      }
-    }
-    EOF
+        EOF
         nginx -g 'daemon off;'
   - name: sidecar-logger
     image: busybox
