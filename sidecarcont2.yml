@@ -4,37 +4,31 @@ metadata:
   name: sidecar-demo
 spec:
   containers:
-    - name: main-app
-      image: nginx
-      ports:
-        - containerPort: 80
-      volumeMounts:
-        - name: shared-logs
-          mountPath: /var/log/nginx
-      command:
-        - /bin/sh
-        - '-c'
-      args:
-        - |
-          cat <<EOF > /etc/nginx/nginx.conf
-          error_log /var/log/nginx/error.log info;
-          events {}
-          http {
-            access_log /var/log/nginx/access.log;
-            server {
-              listen 80;
-              location / {
-                return 200 "Hello from NGINX\n";
-              }
+  - name: main-app
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: shared-logs
+      mountPath: /var/log/nginx
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        echo 'daemon off;
+        error_log /var/log/nginx/error.log info;
+        events {}
+        http {
+          access_log /var/log/nginx/access.log;
+          server {
+            listen 80;
+            location / {
+              return 200 "Hello from NGINX\n";
             }
           }
-           EOF
-          nginx -g 'daemon off;'
-    - name: sidecar-logger
-      image: busybox
-      command:
-        - /bin/sh
-        - '-c'
+        }' > /etc/nginx/nginx.conf && nginx -g 'daemon off;'
+  - name: sidecar-logger
+    image: busybox
+    command: ["/bin/sh", "-c"]
       args:
         - |
           while true; do
@@ -46,9 +40,10 @@ spec:
             fi
             sleep 10;
           done
-      volumeMounts:
-        - name: shared-logs
-          mountPath: /var/log/nginx
-  volumes:
+    volumeMounts:
     - name: shared-logs
-      emptyDir: {}
+      mountPath: /var/log/nginx
+
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
