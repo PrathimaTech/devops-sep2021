@@ -37,4 +37,4 @@ spec:
   - port: 80   # Service Port using which we can access inside cluster
     targetPort: 8080 # containerPort inside pod
     protocol: TCP
-   # nodePort: 30032  # NodePort service port range is from 30000 to 32767      
+   # nodePort: 30032  # NodePort service port range is from 30000 to 32767
