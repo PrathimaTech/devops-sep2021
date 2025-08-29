@@ -5,6 +5,7 @@ metadata:
 data:
   index.html: |
       <H1> Hello ConfigMap </H1>
+---
 kind: Pod
 apiVersion: v1 
 metadata:
