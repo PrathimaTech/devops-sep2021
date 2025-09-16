@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-liveness-failure
+  labels:
+    app: nginx-liveness-failure
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    livenessProbe:
+      httpGet:
+        path: /invalidpath     # Wrong path → returns 404
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 3
