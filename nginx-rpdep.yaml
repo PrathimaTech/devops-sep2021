@@ -19,7 +19,7 @@ spec:
         - containerPort: 80
         readinessProbe:
           httpGet:
-            path: /invalidpath   # Will fail for all pods
+            path: /   
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
